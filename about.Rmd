@@ -1,0 +1,20 @@
+---
+title: "About Jen"
+output: html_document
+---
+
+### Hi there! 
+
+
+Jen is a candidate for the Master of Behavioral and Decision Sciences at the University of Pennsylvania. Over the course of her undergraduate studies at the University of Toronto, she developed a series of analytical and management skills from having participated in various laboratories spanning across the clinical, social, neuroscience, and business domains of Psychology. Within her graduate studies, she looks forward to furthering her understanding of behavioral networks and decision-making processes while being at the forefront of trending behavioral insights and contemporary quantitative techniques.
+
+
+
+In her free time, she enjoys perusing through Medium, sampling whisk(e)ys, and spending time with family and friends. She is also a strong proponent for professional, fruitful relationships developed through impactful mentorships.
+
+
+<b/>
+
+This is Jen's already-existing personal website, made using R Blogdown: https://jenniferxue.netlify.app/
+ 
+<b/>

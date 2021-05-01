@@ -1,0 +1,11 @@
+---
+title: "Welcome!"
+author: " "
+output: html_document
+---
+
+Thanks for stopping by. :-) 
+
+Please browse the "Project" and "About" tabs for more information.
+
+

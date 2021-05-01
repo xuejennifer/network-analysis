@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>The Twitter Analysis: Elon Musk and Tim Cook</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Jennifer Xue</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="project.html">Project</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The Twitter Analysis: Elon Musk and Tim Cook</h1>
+<h4 class="date">BDS-516 HW09 | April 25, 2021</h4>
+
+</div>
+
+
+<h2>
+Introduction
+</h2>
+<p>For this assignment, we are interested in the comparing tweets from <strong>Elon Musk</strong> and <strong>Tim Cook</strong>. Our main research question is the following: <em>How do tweets from Elon Musk and Tim Cook differ?</em>. Before starting the research process, we hypothesize that there would be a large difference in the sentiment of tweets; that is, we postulate that tweets from Elon will contain more extreme sentiments than those from Tim. Additionally, we expect that Elon may have more tweets with pictures while also tweeting at more sproradic and unconventional times of the day in comparison to Tim.</p>
+<p>In sum, we have three hypotheses:</p>
+<ol style="list-style-type: decimal">
+<li>Elon will have more extreme sentiment in his tweets, compared to Tim</li>
+<li>Tim will have fewer tweets with pictures/links, compared to Elon</li>
+<li>Elon will have more sporadic tweeting patterns, compared to Tim</li>
+</ol>
+<h2>
+Methodology
+</h2>
+<p>In order to investigate potential differences between the tweets of Elon Musk and Tim Cook, our methodology covered the following:</p>
+<ul>
+<li>Comparing time patterns between the tweets of both accounts. The purpose for this was to gather information about the times of the day during which both accounts tweet the most or the least.<br />
+</li>
+<li>Comparing the number of tweets with or without pictures/links from both users The purpose for this was to understand which user tends to include pictures/links in their tweets more often.</li>
+<li>Tokenizing the tweets in each account. The purpose for this was to identify differences between popular words tweeted between both accounts and to conduct a sentiment analysis on each sample of tweets.</li>
+</ul>
+<p>For our predictive algorithm, we divided our data into test and train data and applied a decision tree to identify the srouces of the tweet based on the following variables:</p>
+<ul>
+<li>Whether the tweet contained pictures/links</li>
+<li>The hour of the day during which the tweet was published</li>
+<li>The sentiment score using the AFINN dictionary</li>
+</ul>
+<div id="first-we-are-loading-in-the-tweets-from-elon-musk-and-tim-cook-our-two-twitter-users-of-interest." class="section level3">
+<h3>First, we are loading in the tweets from Elon Musk and Tim Cook, our two Twitter users of interest.</h3>
+<pre class="r"><code>#load data
+setwd(&#39;~/Dropbox/516_Eels/HW_9&#39;)
+
+elon = read_csv(&#39;elonmusk_tweets.csv&#39;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   id = col_double(),
+##   source = col_character(),
+##   created_at = col_datetime(format = &quot;&quot;),
+##   favorite_count = col_double(),
+##   retweet_count = col_double(),
+##   text = col_character()
+## )</code></pre>
+<pre class="r"><code>elon$user = &quot;Elon&quot;
+
+cook = read_csv(&#39;tim_cook_tweets.csv&#39;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   id = col_double(),
+##   source = col_character(),
+##   created_at = col_datetime(format = &quot;&quot;),
+##   favorite_count = col_double(),
+##   retweet_count = col_double(),
+##   text = col_character()
+## )</code></pre>
+<pre class="r"><code>cook$user = &quot;Tim&quot;
+
+combined &lt;- rbind(elon, cook) #combine data frames
+
+nrc &lt;- read_rds(&quot;nrc.rds&quot;)</code></pre>
+</div>
+<div id="now-we-want-to-understand-the-differences-in-the-times-of-tweets-between-users." class="section level3">
+<h3>Now, we want to understand the differences in the times of tweets between users.</h3>
+<p>Tim Cook appears to tweet more often in the morning (between 7:00am - 10:00am EST), whereas Elon is much more likely to tweet in the very early morning/late night (12:00am - 5:00am EST). Tim’s tweets reach a significant peak toward 9:00am EST, which is a sign that there are potentially scheduled tweets that go out during that time of the day.</p>
+<p>The steady rise and peak at 9:00am observed in Tim Cook’s tweets suggest he may use an automated service, like TweetDeck, to tweet. Also, since many of his tweets are complete thoughts and sentences, rather than quick, single line comments, we can infer that he may plan his tweets/communications ahead of time.</p>
+<p>As for Elon, his tweets tend to be less-structured with less predictable timing. His second-highest peak, roughly at 6:00pm EST, can be fully realized by a tweet sent at 6:09pm EST on 4/10, stating, <strong>“Blimps rock.”</strong> A picture of a Goodyear blimp was included in the tweet.</p>
+<p><em>Please note that later in this report, in the algorithm sections, we report times using PST instead of EST.</em></p>
+<pre class="r"><code>#time of day of tweets 
+combined %&gt;%
+  count(user, hour = hour(with_tz(created_at, &quot;EST&quot;))) %&gt;%
+  mutate(percent = n/sum(n)) %&gt;%
+  ggplot(aes(x = hour, y = percent, color = user)) +
+  labs(title = &quot;Percentage of tweets based on time of day&quot;, 
+       x = &quot;Hour of day (EST)&quot;, 
+       y = &quot;% of tweets&quot;, color = &quot;&quot;,
+       fill = &quot;User&quot;) + 
+  scale_y_continuous(labels = scales::percent)+
+  geom_line() + theme_bw()</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="next-we-were-interested-in-the-differences-between-users-tweets-when-it-comes-to-tweets-that-contain-pictureslinks." class="section level3">
+<h3>Next, we were interested in the differences between users’ tweets when it comes to tweets that contain pictures/links.</h3>
+<p>We find that Tim Cook is much more likely to include a picture or a hyperlink in his tweets. Out of the total tweets in our dataset, the number of tweets with <code>Picture/link</code> for Elon is 159 while Tim has 768 tweets with either a picture or link.</p>
+<p>Put otherwise, Tim Cook has a picture/link tweet rate of 68%, whereas Elon has a rate of 14%. For every one picture or link Elon tweets, Tim will tweet five.</p>
+<pre class="r"><code>#count the number of tweets with and without picture/links by user
+pic_ct &lt;- combined %&gt;%
+  filter(!str_detect(text, &#39;^&quot;&#39;)) %&gt;%
+  count(user,picture = ifelse(str_detect(text, &quot;t.co&quot;),
+                         &quot;Picture/link&quot;, &quot;No picture/link&quot;))
+
+#bar plot 
+ggplot(pic_ct, aes(x = user, y = n, fill = picture)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  labs(title = &quot;Tweets with(out) picture/link&quot;, x = &quot;&quot;, y = &quot;Number of tweets&quot;, fill = &quot;&quot;) +
+  theme_bw()</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="this-section-analyzes-the-frequency-of-individual-words." class="section level3">
+<h3>This section analyzes the frequency of individual words.</h3>
+<p>The first thing we did was create a regex pattern that removed any unwanted symbols/characters.</p>
+<pre class="r"><code>#create a regex pattern
+reg &lt;- &quot;([^A-Za-z\\d#@&#39;]|&#39;(?![A-Za-z\\d#@]))&quot;
+
+#tokenize
+tweet_txt &lt;- combined %&gt;%
+  filter(!str_detect(text, &#39;^&quot;&#39;)) %&gt;%
+  mutate(text = str_replace_all(text, &quot;@https://t.co/[A-Za-z\\d]+|&amp;amp;&quot;, &quot;&quot;)) %&gt;%
+  unnest_tokens(word, text, token = &quot;regex&quot;, pattern = reg) %&gt;%
+  filter(!word %in% stop_words$word,
+         str_detect(word, &quot;[a-z]&quot;))
+
+tweet_txt &lt;- tweet_txt[!grepl(&quot;@&quot;, tweet_txt$word),]  
+tweet_txt &lt;- tweet_txt[!grepl(&quot;https&quot;, tweet_txt$word),] </code></pre>
+<p>Then, using a newly tokenized dataset, we show the words that occur most often in Elon’s tweets and Tim’s tweets. Unsurprisingly, Elon’s most-tweeted word is <code>Tesla</code>, followed by <code>haha</code> and Tim’s most-tweeted words are <code>Apple</code> and <code>world</code>.</p>
+<pre class="r"><code>tweet_txt %&gt;%
+  group_by(user) %&gt;% 
+  count(word, sort = TRUE) %&gt;%
+  head(40) %&gt;%
+  mutate(word = reorder(word, n)) %&gt;%
+  ggplot(aes(x = word, y = n)) +
+  geom_bar(stat = &quot;identity&quot;, fill = &quot;blue&quot;) + facet_wrap(~user) +
+  ylab(&quot;Occurrences&quot;) + xlab(&quot;Word&quot;) +
+  coord_flip() + theme_bw()</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="now-we-begin-our-sentiment-analysis." class="section level3">
+<h3>Now, we begin our sentiment analysis.</h3>
+<p>We join the NRC dictionary to our data frame that contains the texts of the tweets, into a new data frame called <code>tweet_sentiment</code>. Then we assess each word and calculate a logarithmic ratio comparing the users to determine the difference. We take this log ratio, and plot it: for the words with the largest difference when it comes to being tweeted by either Elon or Tim, the top 15 are all words that come from Elon’s tweets.</p>
+<pre class="r"><code>#RATIO TIME
+
+#join nrc first
+tweet_sentiment &lt;- inner_join(tweet_txt, nrc, by = &quot;word&quot;) %&gt;% 
+            group_by(sentiment) %&gt;% head(10)
+
+#ratio of words and plot the ratio
+tweet_ratio &lt;- tweet_txt %&gt;%
+  count(word, user) %&gt;%
+  group_by(word)  %&gt;% 
+  filter(sum(n) &gt;= 5) %&gt;%
+  spread(user, n, fill = 0) %&gt;%
+  ungroup()  %&gt;% 
+  mutate_if(is.numeric, ~((. + 1) / sum(. + 1))) %&gt;% 
+  mutate(logratio = log2(Elon / Tim)) %&gt;% 
+  arrange(desc(logratio))
+
+tweet_ratio %&gt;%
+  top_n(15, abs(logratio)) %&gt;%
+  ungroup() %&gt;%
+  mutate(word = reorder(word, logratio)) %&gt;%
+  ggplot(aes(x = word, y = logratio, fill = logratio &lt; 0)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  coord_flip() +
+  ylab(&quot;Elon / Tim ratio&quot;) +
+  scale_fill_manual(name = &quot;&quot;, labels = c(&quot;Elon&quot;, &quot;Tim&quot;),
+                    values = c(&quot;red&quot;, &quot;lightblue&quot;)) </code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div id="second-we-begin-assessing-words-by-either-positive-or-negative-sentiment." class="section level4">
+<h4>Second, we begin assessing words by either <code>positive</code> or <code>negative</code> sentiment.</h4>
+<p>In general, it appears that Elon’s tweets have a stronger sentiment (i.e., more angry, more sad, more joyful) than Tim’s tweets. We draw this conclusion by examining the size of the red bars (Elon) in comparison to the light blue bars (Tim) for each general sentiment category.</p>
+<p>As seen throughout the previous questions, we can assume Tim uses Twitter as a more professional means of communication, while Elon uses Twitter as a <em>normal</em>, non-professional user would, to tweet about blimps and claim he is the “techno-king” of his own company, Tesla. We see more instances of this dichotomy between Tim and Elon when we apply sentiment analysis to their tweets. Elon, as a whole, uses stronger sentiments (positive and negative).</p>
+<p>What stands out the most here is Elon’s use of <code>bad</code>. It is his most used word among the disgust, fear, and sad sentiment categories, and the second most extreme word of the anger sentiment category. However, it is important to note that the most angered word of his is <code>rocket</code>, which could be used as proof <em>against</em> the efficacy of sentiment analysis in this case.</p>
+<p>Tim’s use of <code>proud</code> also stands out. It is his most used word among the anticipation, trust, and joy sentiment categories. By comparing the sentiments under which these most commonly-tweeted words fall, we can see that Elon’s tweets are associated with more extreme sentiments as opposed to Tim’s, which are associated with more neutral sentiments.</p>
+<pre class="r"><code>#INDIVIDUAL SENTIMENT TIME
+tweet_sentiment &lt;- tweet_ratio %&gt;%
+  inner_join(nrc, by = &quot;word&quot;) %&gt;%
+  filter(!sentiment %in% c(&quot;positive&quot;, &quot;negative&quot;)) %&gt;%
+  mutate(sentiment = reorder(sentiment, -logratio),
+         word = reorder(word, -logratio)) %&gt;%
+  group_by(sentiment) %&gt;%
+  top_n(15, abs(logratio)) %&gt;%
+  ungroup() 
+
+#plot the log odds ratio of words by user in groups of sentiments
+ggplot(tweet_sentiment, aes(x = word, y = logratio, fill = logratio &lt; 0)) +
+  facet_wrap(~ sentiment, scales = &quot;free&quot;, nrow = 2) +
+  geom_bar(stat = &quot;identity&quot;) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = &quot;&quot;, y = &quot;Elon / Tim ratio&quot;) +
+  scale_fill_manual(name = &quot;&quot;, labels = c(&quot;Elon&quot;, &quot;Tim&quot;),
+                    values = c(&quot;red&quot;, &quot;lightblue&quot;))</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="algorithm-to-predict-elons-versus-tims-tweets" class="section level3">
+<h3>Algorithm to predict Elon’s versus Tim’s Tweets</h3>
+<p>In preparation of our decision tree, we select three input variables of interest: a) whether the tweet has a picture/link, b) the time of the tweet, and c) a sentiment score using the AFINN dictionary. We’ve also included a word cloud, out of interest. Our word cloud includes the top 100 words in our combined data set (excluding ‘stop words’). As we can see, most words are of relatively similar size, suggesting that no word stands out as a being used much more than the others.</p>
+<pre class="r"><code>#adding a 0/1 binary picture column to the &quot;combined&quot; data set
+predictingtree &lt;- combined %&gt;%
+  filter(!str_detect(text, &#39;^&quot;&#39;)) %&gt;%
+  mutate(user,
+        picture = ifelse(str_detect(text, &quot;t.co&quot;),
+                         &quot;Picture/link&quot;, &quot;No picture/link&quot;)) %&gt;% 
+  mutate(pic_binary = case_when(picture == &quot;No picture/link&quot; ~ 0,
+                                picture == &quot;Picture/link&quot; ~ 1))
+
+levels(predictingtree$pic_binary) &lt;- c(&quot;0&quot;,&quot;1&quot;) 
+
+#adding a variable for time of day
+predictingtree &lt;- predictingtree %&gt;% 
+  mutate(hour = hour(with_tz(created_at, &quot;PST&quot;)))</code></pre>
+<pre><code>## Warning: Problem with `mutate()` input `hour`.
+## ℹ unknown timezone &#39;PST&#39;
+## ℹ Input `hour` is `hour(with_tz(created_at, &quot;PST&quot;))`.</code></pre>
+<pre><code>## Warning in as.POSIXlt.POSIXct(x, tz = tz(x)): unknown timezone &#39;PST&#39;</code></pre>
+<pre class="r"><code>#adding a variable of total sentiment of tweet
+predictingtree &lt;- predictingtree %&gt;%
+    unnest_tokens(word, text, token = &quot;tweets&quot;) %&gt;%
+    inner_join(get_sentiments(&quot;afinn&quot;)) #using afinn dictionary (sentiments range from -5 to 5)</code></pre>
+<pre><code>## Using `to_lower = TRUE` with `token = &#39;tweets&#39;` may not preserve URLs.</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre class="r"><code>predictingtree</code></pre>
+<pre><code>## # A tibble: 3,835 x 11
+##         id source created_at          favorite_count retweet_count user  picture
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dttm&gt;                       &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  
+##  1 1.38e18 Twitt… 2021-04-11 15:48:58          71696          1528 Elon  No pic…
+##  2 1.38e18 Twitt… 2021-04-11 15:48:58          71696          1528 Elon  No pic…
+##  3 1.38e18 Twitt… 2021-04-11 14:49:38           1394            48 Elon  No pic…
+##  4 1.38e18 Twitt… 2021-04-10 23:56:43           2542            65 Elon  No pic…
+##  5 1.38e18 Twitt… 2021-04-10 23:54:51           2631           202 Elon  No pic…
+##  6 1.38e18 Twitt… 2021-04-10 19:49:26           4606           154 Elon  No pic…
+##  7 1.38e18 Twitt… 2021-04-10 19:46:36           8486           221 Elon  No pic…
+##  8 1.38e18 Twitt… 2021-04-10 08:32:35           2313           114 Elon  No pic…
+##  9 1.38e18 Twitt… 2021-04-10 08:23:03           3302           262 Elon  No pic…
+## 10 1.38e18 Twitt… 2021-04-10 08:23:03           3302           262 Elon  No pic…
+## # … with 3,825 more rows, and 4 more variables: pic_binary &lt;dbl&gt;, hour &lt;int&gt;,
+## #   word &lt;chr&gt;, value &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#amazing wordcloud
+predictingtree %&gt;%
+  anti_join(stop_words) %&gt;%
+  count(word) %&gt;%
+  with(wordcloud(word, n, max.words = 100))</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre><code>## Warning in wordcloud(word, n, max.words = 100): celebrate could not be fit on
+## page. It will not be plotted.</code></pre>
+<pre><code>## Warning in wordcloud(word, n, max.words = 100): support could not be fit on
+## page. It will not be plotted.</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div id="we-split-our-data-into-train-data-tree_train-and-test-data-for-later-use-tree_test.-then-we-generate-a-decision-tree-first-using-tree_train." class="section level4">
+<h4>We split our data into train data, <code>tree_train</code>, and test data for later use, <code>tree_test</code>. Then, we generate a decision tree, first using <code>tree_train</code>.</h4>
+<p>As aforementioned, we are using a decision tree to classify who the tweeter is (Elon vs. Tim) as a function of a) whether the tweet has a picture/link, b) the time of the tweet, and c) the sentiment score per the AFINN dictionary.</p>
+<p>As can be seen from the decision tree, we very clearly observe that of 50% of the tweets that have a picture/link, that there is a 96% chance of them coming from Tim. We will continue to analyze the higher levels of the tree. We also see that for 18% of the tweets that do not contain a picture/link, but occur after 6:00am PST and before noon PST, there is a 39% chance that they come from Elon. Moreover, for 32% of the tweets that do not contain a picture/link and come at or after 6:00pm PST, that there is a 62% they are from Tim. If we continue following this branch, we also note that if the sentiment is greater than -2 per the AFINN dictionary, that there is a 33% likelihood that 13% of the tweets come from Elon.</p>
+<pre class="r"><code>#split train and test data
+set.seed(321)
+split = sort(sample(nrow(predictingtree), nrow(predictingtree)*.8))
+tree_train &lt;- predictingtree[split,]
+tree_test &lt;- predictingtree[-split,]
+
+#decision tree 
+tweet_tree &lt;- rpart(formula = user ~ pic_binary + hour + value, 
+                   data = tree_train,
+                   method  = &quot;class&quot;)
+
+rpart.plot(tweet_tree, yesno = 2, type = 1)</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="to-understand-the-algorithms-effectiveness-on-new-tweets-from-elon-and-tim-we-use-a-confusion-matrix-on-the-test-data." class="section level4">
+<h4>To understand the algorithm’s effectiveness on <em>new</em> tweets from Elon and Tim, we use a confusion matrix on the test data.</h4>
+<p>As can be seen from our confusion matrix, the algorithm has an overall accuracy of 83% with the current variables included. It shows higher predictability for Elon’s tweets versus those of Tim. But, overall, the algorithm is very well predictive of tweets from both accounts.</p>
+<pre class="r"><code>#predict using test data
+tweet_predict &lt;- predict(tweet_tree, tree_test, type = &quot;class&quot;)
+
+#confusion matrix
+confusionMatrix(as.factor(tree_test$user), as.factor(tweet_predict))</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction Elon Tim
+##       Elon  100  77
+##       Tim    52 538
+##                                           
+##                Accuracy : 0.8318          
+##                  95% CI : (0.8034, 0.8576)
+##     No Information Rate : 0.8018          
+##     P-Value [Acc &gt; NIR] : 0.01926         
+##                                           
+##                   Kappa : 0.5016          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.03459         
+##                                           
+##             Sensitivity : 0.6579          
+##             Specificity : 0.8748          
+##          Pos Pred Value : 0.5650          
+##          Neg Pred Value : 0.9119          
+##              Prevalence : 0.1982          
+##          Detection Rate : 0.1304          
+##    Detection Prevalence : 0.2308          
+##       Balanced Accuracy : 0.7663          
+##                                           
+##        &#39;Positive&#39; Class : Elon            
+## </code></pre>
+</div>
+</div>
+<div id="lastly-we-applied-our-algorithm-to-two-completely-unrelated-users-joe-rogan-and-jojo-siwa." class="section level2">
+<h2>Lastly, we applied our algorithm to two completely unrelated users: Joe Rogan and Jojo Siwa.</h2>
+<p>We created the same new variables that assessed the presence/absence of link/pictures, the time of the tweet, and the sentiment per AFINN dictionary. We implement the same algorithm (i.e., decision tree) to Joe and Jojo’s tweets. In comparison to the wordcloud created for the Tim/Elon dataset, the Joe/Jojo wordcloud contains <em>considerably more profanity</em>. Additionally, there are a couple of words such as <code>love</code> and <code>powerful</code> that stand out as being utilized more than others.</p>
+<p>We observe that while the algorithm still somewhat accurately categorizes tweets for either Jojo or Joe and does not break, we do note that the accuracy of the decision tree decreases by about 7% compared to the original algorithm built using Elon and Tim’s tweets. According to the decision tree, only the variables of a) pictures/link and b) tweet sentiment are predictive in this model; the time of the tweet is not a significant predictor of user, since it is not shown in the tree.</p>
+<p>85% of tweets that have very negative sentiment (less than -3 per the AFINN scale) and have no pictures/links have a 14% chance of being tweeted by Joe. 14% of tweets that have a sentiment larger than -3 and have no pictures/links have a 86% chance of being tweeted by Jojo.</p>
+<pre class="r"><code>setwd(&#39;~/Dropbox/516_Eels/HW_9&#39;)
+
+rogan = read_csv(&#39;joerogan_tweets.csv&#39;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   id = col_double(),
+##   source = col_character(),
+##   created_at = col_datetime(format = &quot;&quot;),
+##   favorite_count = col_double(),
+##   retweet_count = col_double(),
+##   text = col_character()
+## )</code></pre>
+<pre class="r"><code>rogan$user = &quot;Joe&quot;
+
+siwa = read_csv(&#39;itsjojosiwa_tweets.csv&#39;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   id = col_double(),
+##   source = col_character(),
+##   created_at = col_datetime(format = &quot;&quot;),
+##   favorite_count = col_double(),
+##   retweet_count = col_double(),
+##   text = col_character()
+## )</code></pre>
+<pre class="r"><code>siwa$user = &quot;Jojo&quot;
+
+
+combined_unrelated &lt;- rbind(rogan, siwa) #combine data frames from unrelated users
+
+other_tree &lt;- combined_unrelated %&gt;%
+  filter(!str_detect(text, &#39;^&quot;&#39;)) %&gt;%
+  mutate(user,
+        picture = ifelse(str_detect(text, &quot;t.co&quot;),
+                         &quot;Picture/link&quot;, &quot;No picture/link&quot;)) %&gt;% 
+  mutate(pic_binary = case_when(picture == &quot;No picture/link&quot; ~ 0,
+                                picture == &quot;Picture/link&quot; ~ 1))
+
+
+levels(other_tree$pic_binary) &lt;- c(&quot;0&quot;,&quot;1&quot;) 
+
+
+#adding a variable for time of day
+other_tree &lt;- other_tree %&gt;% 
+  mutate(hour = hour(with_tz(created_at, &quot;PST&quot;)))</code></pre>
+<pre><code>## Warning: Problem with `mutate()` input `hour`.
+## ℹ unknown timezone &#39;PST&#39;
+## ℹ Input `hour` is `hour(with_tz(created_at, &quot;PST&quot;))`.</code></pre>
+<pre><code>## Warning in as.POSIXlt.POSIXct(x, tz = tz(x)): unknown timezone &#39;PST&#39;</code></pre>
+<pre class="r"><code>#adding a variable of total sentiment of tweet
+other_tree &lt;- other_tree %&gt;%
+    unnest_tokens(word, text, token = &quot;tweets&quot;) %&gt;%
+    inner_join(get_sentiments(&quot;afinn&quot;)) #using afinn dictionary (sentiments range from -5 to 5)</code></pre>
+<pre><code>## Using `to_lower = TRUE` with `token = &#39;tweets&#39;` may not preserve URLs.</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre class="r"><code>other_tree</code></pre>
+<pre><code>## # A tibble: 4,276 x 11
+##         id source created_at          favorite_count retweet_count user  picture
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;dttm&gt;                       &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  
+##  1 1.38e18 Insta… 2021-04-17 01:35:41            997            52 Joe   Pictur…
+##  2 1.38e18 Insta… 2021-04-07 19:24:58           1542            87 Joe   Pictur…
+##  3 1.38e18 Insta… 2021-04-07 19:24:58           1542            87 Joe   Pictur…
+##  4 1.38e18 Insta… 2021-04-07 19:24:58           1542            87 Joe   Pictur…
+##  5 1.37e18 Insta… 2021-03-19 19:09:01            974            60 Joe   Pictur…
+##  6 1.37e18 Insta… 2021-03-19 19:09:01            974            60 Joe   Pictur…
+##  7 1.37e18 Insta… 2021-03-17 21:35:28            935            49 Joe   Pictur…
+##  8 1.37e18 Insta… 2021-03-17 21:35:28            935            49 Joe   Pictur…
+##  9 1.37e18 Insta… 2021-03-16 22:49:07            911            54 Joe   Pictur…
+## 10 1.37e18 Insta… 2021-03-16 22:49:07            911            54 Joe   Pictur…
+## # … with 4,266 more rows, and 4 more variables: pic_binary &lt;dbl&gt;, hour &lt;int&gt;,
+## #   word &lt;chr&gt;, value &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#incredible wordcloud
+other_tree %&gt;%
+  anti_join(stop_words) %&gt;%
+  count(word) %&gt;%
+  with(wordcloud(word, n, max.words = 100)) </code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>#split other users train and test data 
+set.seed(321)
+split2 = sort(sample(nrow(other_tree), nrow(other_tree)*.8))
+other_train &lt;- other_tree[split,]
+other_test &lt;- other_tree[-split,]
+
+#decision tree 
+other_decisiontree &lt;- rpart(formula = user ~ pic_binary + hour + value, 
+                   data = other_train,
+                   method  = &quot;class&quot;)
+
+rpart.plot(other_decisiontree, yesno = 2, type = 1)</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<pre class="r"><code>#confusion matrix
+tweet_predict2 &lt;- predict(other_decisiontree, other_test, type = &quot;class&quot;)
+
+confusionMatrix(as.factor(other_test$user), as.factor(tweet_predict2)) #.76</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction Joe Jojo
+##       Joe  568   19
+##       Jojo 268  353
+##                                           
+##                Accuracy : 0.7624          
+##                  95% CI : (0.7374, 0.7862)
+##     No Information Rate : 0.6921          
+##     P-Value [Acc &gt; NIR] : 3.512e-08       
+##                                           
+##                   Kappa : 0.5299          
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16       
+##                                           
+##             Sensitivity : 0.6794          
+##             Specificity : 0.9489          
+##          Pos Pred Value : 0.9676          
+##          Neg Pred Value : 0.5684          
+##              Prevalence : 0.6921          
+##          Detection Rate : 0.4702          
+##    Detection Prevalence : 0.4859          
+##       Balanced Accuracy : 0.8142          
+##                                           
+##        &#39;Positive&#39; Class : Joe             
+## </code></pre>
+<h2>
+Results
+</h2>
+<p>While we have also provided explanations at each code chunk, the general takeaways are as follows:</p>
+<p><strong>Presence of pictures/links</strong></p>
+<ul>
+<li>Tim tweets more using pictures/links than Elon.</li>
+</ul>
+<p><strong>Time of tweet</strong></p>
+<ul>
+<li>Tim appears to tweet more often in the morning (between 7:00am - 10:00am EST), whereas Elon is much more likely to tweet in the very early morning/late night (12:00am - 5:00am EST). Tim’s tweet reach a significant peak toward 9:00am EST, which is a sign that there are potentially scheduled tweets that go out during that time of the day.</li>
+</ul>
+<p><strong>Frequency of certain words in tweets</strong></p>
+<ul>
+<li>Elon’s tweets are more informal than those of Tim. Aside from <code>Telsa</code>, the most popular word in Elon’s tweets is <code>haha</code>. The most popular words in Tim’s tweets are <code>Apple</code> and <code>world</code>.<br />
+</li>
+<li>For the words with the largest difference when it comes to being tweeted by either Elon or Tim, the top 15 are all words that are coming from Elon. This makese sense, given that of the few business words that Elon tweets, the top one is directly related to Elon’s primary business (i.e., <code>tesla</code>). We can interpret this as Elon having tweeted these terms exponentially more than Tim.</li>
+</ul>
+<p><strong>Sentiment</strong></p>
+<ul>
+<li>In comparison to Tim, Elon as a whole uses stronger sentiments in his tweets (positive and negative). What stands out the most here is Elon’s use of <code>bad</code>, which is his most used word among the disgust, fear, and sad sentiments (the second most extreme word of anger).<br />
+</li>
+<li>The algorithm that we developed using time, content, and sentiment per the AFINN dictionary of the tweets is able to differential with 83% accuracy tweets from Elon and Tim.</li>
+<li>However, the confusion matrix indicated a difference of 7% of its accuracy when applied to the Jojo Siwa and Joe Rogan tweets. In both models, the variable pictures/links kept its position as the most predictive variable. Unlike tweets from Elon Musk and Tim Cook, time of the day was not a significantly predictive variable when applying our algorithm to the Jojo Siwa and Joe Rogan data. As such, Jojo and Joe’s tweets seem to differ mostly, based on our algrotihm, on sentiment and pictures/links.</li>
+</ul>
+<h2>
+Conclusion and Attributions
+</h2>
+<p>To close, recall that our three directional hypotheses were as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Elon will have more extreme sentiment in his tweets, compared to Tim</li>
+<li>Tim will have fewer tweets with pictures/links, compared to Elon</li>
+<li>Elon will have more sporadic tweeting patterns, compared to Tim</li>
+</ol>
+<p>Indeed, at a broad level, Elon has more extreme sentiment among his tweets compared to Tim’s neutral tone. Moreover, Elon’s time of tweets follow a pattern that is more bimodal than unimodal, hinting that his tweets are less predictable in comparison to Tim’s clear 9:00am EST peak of tweets. Thus, we fail to reject Hypotheses 1 and 3. Surprisingly, we find that Tim tweets with more pictures/links, and so Hypothesis 2 is rejected.</p>
+<hr />
+<p>Finally, <em>#GoEels</em>: This assignment was a collaborative effort between Walid Hedidar, Aamia Malik, Michael Murphy, Jon Sirota, Cory Winkler, and Jennifer Xue. All are graduate students at the University of Pennsylvania.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
