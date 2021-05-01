@@ -12,5 +12,5 @@ navbar:
 
 output:
   html_document:
-    theme: lumen
+    theme: spacelab
     highlight: textmate
