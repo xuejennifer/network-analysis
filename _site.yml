@@ -5,7 +5,7 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Project"
+    - text: "Project - HW 10"
       href: project.html
     - text: "About"
       href: about.html
