@@ -311,110 +311,50 @@ $(document).ready(function () {
 </div>
 
 
-<p>In this report, we are interested in conducting a network analysis among the BDS-516 Spring 2021 class. First, we import the data and set up the relevant libraries. (<code>include = FALSE</code>).</p>
-<div id="prepare-the-data-for-the-network-analysis-create-a-separate-edge-and-node-list" class="section level2">
-<h2>1) Prepare the data for the network analysis (create a separate edge and node list)</h2>
-<p>We begin with our separate node and edge lists, titled <code>hw_nodelist</code> and <code>hw_edgelist</code>.</p>
-<div id="network-graphical-visualization" class="section level3">
-<h3>Network graphical visualization</h3>
-<p>Next, we begin with some basic visualizations.</p>
-<p>First, we can draw a few key insights from this visualization that plotted our nodes and edges:</p>
+<p>In this report, we are interested in conducting a network analysis among the BDS-516 Spring 2021 class.</p>
+<p>First, we set up the relevant libraries. (<code>include = FALSE</code>).</p>
+<div id="prepare-the-data-for-the-network-analysis-a-separate-edge-and-node-list." class="section level3">
+<h3>1) Prepare the data for the network analysis: a separate edge and node list.</h3>
+<p>We begin with our separate node and edge lists, titled <code>hw_nodelist</code> and <code>hw_edgelist</code> (<code>include = FALSE</code>).</p>
+<div id="network-graphical-visualization." class="section level4">
+<h4>Network graphical visualization.</h4>
+<p>Next, we generate some basic visualizations. We are able to draw several key insights from this visualization that plotted our nodes and edges:</p>
 <ol style="list-style-type: decimal">
-<li><p>This appears to resemble a scale-free network; unsurprisingly, some respondents do not know others in the network wel while others appear to know many others.</p></li>
-<li><p>Respondent 39 appears to be the least connected to the rest of the network, as well as Respondent 14.</p></li>
+<li><p>This appears to resemble a scale-free network; unsurprisingly, some respondents do not know others in the network well, while others appear to know many others.</p></li>
+<li><p>Respondent 39 appears to be the least connected to the rest of the network, as well as Respondent 14 and 25 who have one connection.</p></li>
 </ol>
-<pre class="r"><code>newnetwork &lt;- graph_from_data_frame(d = hw_edgelist, vertices = hw_nodelist, directed = TRUE)
-plot(newnetwork, edge.arrow.size = .3, vertex.size = 3, edge.curved=0)</code></pre>
 <p><img src="project_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="clustering-and-more-graphs" class="section level3">
-<h3>Clustering and more graphs</h3>
-<p>Second, we generated a Newman-Girvan graph, which sequentially removes high-betweeness edges to only leave behind the best partitioning of the network for the graph. This figure uses hierarchical clustering, identifying 22 unique clusters.</p>
-<p>We also created a figure built on community detection, based on propagating labels. This figure assigns node labels, randomizes, and then replaces each label with the label that is most frequent among its neighbors; this process halts after each vertex has the most common label of its neighbors. <em>this is for line 70-71; not exactly sure what it’s supposed to be showing</em></p>
-<p><em>this is getting a ton of errors, need to figure out if they matter &amp; what’s going on during 5/3 mtg AM</em></p>
-<pre class="r"><code>ceb &lt;- cluster_edge_betweenness(newnetwork)
-dendPlot(ceb, mode=&quot;hclust&quot;)</code></pre>
-<p><img src="project_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>length(ceb)</code></pre>
-<pre><code>## [1] 22</code></pre>
-<pre class="r"><code>#plot(ceb, newnetwork, vertex.size = 3, edge.arrow.size = 0.2) this shows same info as previous line, not sure we need it
-
-
-clp &lt;- cluster_label_prop(newnetwork)
-plot(clp, newnetwork, newnetwork, vertex.size = 3, edge.arrow.size = 0.2) </code></pre>
-<pre><code>## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character
-
-## Warning in symbols(x = coords[, 1], y = coords[, 2], bg = vertex.color, :
-## supplied color is neither numeric nor character</code></pre>
-<p><img src="project_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
-<pre class="r"><code>#Jon, what do the colors mean? Are all of these just clusters? If so, based on what exactly? -jX</code></pre>
-</div>
-</div>
-<div id="calculate-measures-of-centrality-and-similarity-in-networks-depending-on-the-type-of-tie.-which-tie-type-generates-the-most-similar-network-in-terms-of-introversion-which-tie-type-is-the-most-dissimilar" class="section level2">
-<h2>2) Calculate measures of centrality and similarity in networks depending on the type of tie. Which tie type generates the most similar network in terms of introversion? Which tie type is the most dissimilar?</h2>
-<p>We begin with high-level network and node descriptives.</p>
-<p>The density of the network is 0.44, which is the proportion of all present edges (i.e., connections) from all possible edges in the network. At a broad level, we can understand this value as indicating that not everyone who took the survey is connected.</p>
-<p>The network has a reciprocity and a (global) transitivity of ~0.5, suggesting that about half of the time, a respondent in the network indicated being directly and indirectly tied to someone else, when the respondent on the other end did not agree. This may partially be the result of measurement error.</p>
-<p>The longest geodesic distance, network diameter, is five.</p>
-<p>Lastly, the average node degree using <code>all</code> is 34.65.</p>
-<pre class="r"><code>#DENSITY = proportion of present edges from all possible edges in the network. 
-#(connections are edges?? someone confirm -JX)
-edge_density(newnetwork, loops=F) </code></pre>
-<pre><code>## [1] 0.4442308</code></pre>
-<pre class="r"><code>#RECIPROCITY = proportion of reciprocated ties (for a directed network).
-reciprocity(newnetwork)</code></pre>
-<pre><code>## [1] 0.4992785</code></pre>
-<pre class="r"><code>#GLOBAL TRANSITIVITY
-#• global - ratio of triangles (direction disregarded) to connected triples. 
-transitivity(newnetwork, type=&quot;global&quot;)</code></pre>
-<pre><code>## [1] 0.5005313</code></pre>
-<pre class="r"><code>#DIAMETER = longest geodesic distance (length of the shortest path between two nodes) in the network
-diameter(newnetwork, directed=F, weights=NA)</code></pre>
-<pre><code>## [1] 5</code></pre>
-<pre class="r"><code>#NODE DEGREES
-#has a mode of in for in-degree, out for out-degree, and all or total for total degree.
-deg &lt;- degree(newnetwork, mode=&quot;all&quot;)
-mean(deg)</code></pre>
-<pre><code>## [1] 34.65</code></pre>
-<pre class="r"><code>hist(deg, breaks = 20, main=&quot;Histogram of node degree&quot;)</code></pre>
+<div id="clustering-and-more-graphs." class="section level4">
+<h4>Clustering and more graphs.</h4>
+<p>Additionally, we generated a Newman-Girvan graph, which sequentially removes high-betweeness edges to only leave behind the best partitioning of the network for the graph. This figure uses hierarchical clustering, and identifies 22 unique clusters.</p>
+<p>We also created a figure built on community detection, based on propagating labels. This figure assigns node labels, randomizes, and then replaces each label with the label that is most frequent among its neighbors; this process halts after each vertex has the most common label of its neighbors. Briefly, the second plot shows each respondent encircled by a particular color; the type of color corresponds to the number of ties that the respondent has with other group members.</p>
 <p><img src="project_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Here, we begin centrality functions: we assess degree, closeness, the eigenvector, and betweenness. <em>comments needed, see the NetSciX PDF to interpret values</em></p>
-<p>For degree, which lists the number of ties, the output <code>centralization</code> is .735 and the thoretical maximum of ties is 1560.</p>
-<p>If we examine centrality based on distacne to others in the graph, closeness, we view that the centrality score is 0.434 and the theoretical maximum of this is 19.25.</p>
-<p>For the eigenvector, which is centrality proportional to the sum of connection centralities, the centrality score is 0.67 (values of the first eigenvector) and the theoretical maximum is 39.</p>
-<p>Finally, for betweenness, the centrality value is 0.12.</p>
-<pre class="r"><code>#Degree (number of ties)
-degree(newnetwork, mode=&quot;in&quot;)</code></pre>
+<pre><code>## [1] 22</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+</div>
+</div>
+<div id="calculate-measures-of-centrality-and-similarity-in-networks-depending-on-the-type-of-tie.-which-tie-type-generates-the-most-similar-network-in-terms-of-introversion-which-tie-type-is-the-most-dissimilar" class="section level3">
+<h3>2) Calculate measures of centrality and similarity in networks depending on the type of tie. Which tie type generates the most similar network in terms of introversion? Which tie type is the most dissimilar?</h3>
+<div id="high-level-network-and-node-descriptives." class="section level4">
+<h4>High-level network and node descriptives.</h4>
+<p>The <em>density</em> of the network is 0.44, which is the proportion of all present edges (i.e., connections) from all possible edges in the network. At a broad level, we can understand this value as indicating that not everyone who took the survey is connected.</p>
+<p>The network has a <em>reciprocity</em> and a (global) <em>transitivity</em> of ~0.5, suggesting that about half of the time, a respondent in the network indicated being directly and indirectly tied to someone else, when the respondent on the other end did not agree. This may partially be the result of measurement error.</p>
+<p>The longest geodesic distance, network <em>diameter</em>, is five and the average <em>node degree</em> using <code>all</code> degrees is 34.65.</p>
+<pre><code>## [1] 0.4442308</code></pre>
+<pre><code>## [1] 0.4992785</code></pre>
+<pre><code>## [1] 0.5005313</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre><code>## [1] 34.65</code></pre>
+</div>
+<div id="centrality." class="section level4">
+<h4>Centrality.</h4>
+<p>Next, we assess the centrality functions of degree, closeness, the eigenvector, and betweenness.</p>
+<p>For <em>degree</em>, which lists the number of ties, the centrality score is .735. If we examine centrality based on distance to others in the graph, <em>closeness</em>, we view that the centrality score is 0.434. In terms of the <em>eigenvector</em>, which is centrality proportional to the sum of connection centralities, the centrality score is 0.67 (values of the first eigenvector). Finally, for <em>betweenness</em>, the score is 0.12.</p>
 <pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 
 ##  9 36  6 10 38 41  1 24 14 10  6 18 12  5 12  4  1 46 28 23 20 29 10  7  3  8 
 ## 27 28 29 30 31 32 33 34 35 36 37 38 39 40 
 ## 16 43 37 18 32 13 13 28 25 27  2  9  1  8</code></pre>
-<pre class="r"><code>centr_degree(newnetwork, mode=&quot;in&quot;, normalized=T)</code></pre>
 <pre><code>## $res
 ##  [1]  9 36  6 10 38 41  1 24 14 10  6 18 12  5 12  4  1 46 28 23 20 29 10  7  3
 ## [26]  8 16 43 37 18 32 13 13 28 25 27  2  9  1  8
@@ -424,9 +364,6 @@ degree(newnetwork, mode=&quot;in&quot;)</code></pre>
 ## 
 ## $theoretical_max
 ## [1] 1560</code></pre>
-<pre class="r"><code>#Closeness (centrality based on distance to others in the graph)
-#Inverse of the node’s average geodesic distance to others in the network.
-closeness(newnetwork, mode=&quot;all&quot;, weights=NA) </code></pre>
 <pre><code>##           1           2           3           4           5           6 
 ## 0.017857143 0.016129032 0.011494253 0.008620690 0.013698630 0.016666667 
 ##           7           8           9          10          11          12 
@@ -441,7 +378,6 @@ closeness(newnetwork, mode=&quot;all&quot;, weights=NA) </code></pre>
 ## 0.015625000 0.013698630 0.012500000 0.015384615 0.016129032 0.015384615 
 ##          37          38          39          40 
 ## 0.010869565 0.014492754 0.008064516 0.010989011</code></pre>
-<pre class="r"><code>centr_clo(newnetwork, mode=&quot;all&quot;, normalized=T)</code></pre>
 <pre><code>## $res
 ##  [1] 0.6964286 0.6290323 0.4482759 0.3362069 0.5342466 0.6500000 0.5064935
 ##  [8] 0.5909091 0.5270270 0.5342466 0.4431818 0.4936709 0.4814815 0.3391304
@@ -455,9 +391,6 @@ closeness(newnetwork, mode=&quot;all&quot;, weights=NA) </code></pre>
 ## 
 ## $theoretical_max
 ## [1] 19.24675</code></pre>
-<pre class="r"><code>#Eigenvector (centrality proportional to the sum of connection centralities) 
-#Values of the first eigenvector of the graph matrix.
-eigen_centrality(newnetwork, directed=T, weights=NA) </code></pre>
 <pre><code>## $vector
 ##           1           2           3           4           5           6 
 ## 0.171564157 0.868913434 0.048436700 0.032365907 1.000000000 0.870212863 
@@ -537,7 +470,6 @@ eigen_centrality(newnetwork, directed=T, weights=NA) </code></pre>
 ## 
 ## $options$numreo
 ## [1] 19</code></pre>
-<pre class="r"><code>centr_eigen(newnetwork, directed=T, normalized=T)</code></pre>
 <pre><code>## $vector
 ##  [1] 0.171564157 0.868913434 0.048436700 0.032365907 1.000000000 0.870212863
 ##  [7] 0.028849600 0.514868572 0.151136996 0.157017774 0.118210711 0.414511768
@@ -617,9 +549,6 @@ eigen_centrality(newnetwork, directed=T, weights=NA) </code></pre>
 ## 
 ## $theoretical_max
 ## [1] 39</code></pre>
-<pre class="r"><code>#Betweenness (centrality based on a broker position connecting others) 
-#Number of geodesics that pass through the node or the edge.
-betweenness(newnetwork, directed=T, weights=NA) </code></pre>
 <pre><code>##           1           2           3           4           5           6 
 ##  84.0616886  28.5512815   0.0000000   0.0000000  13.1250010  91.5637434 
 ##           7           8           9          10          11          12 
@@ -634,7 +563,6 @@ betweenness(newnetwork, directed=T, weights=NA) </code></pre>
 ##  23.4809215   4.4627833   0.2936508  28.2161521  22.9380115  48.1758511 
 ##          37          38          39          40 
 ##   0.0000000   6.1281513   0.0000000  12.6727273</code></pre>
-<pre class="r"><code>edge_betweenness(newnetwork, directed=T, weights=NA) </code></pre>
 <pre><code>##   [1]  1.6505897  4.5244509  0.5000000  0.5000000  2.1335498  0.7833333
 ##   [7]  0.7833333  0.8383863  0.8383863  0.8383863  1.6059523  1.6059523
 ##  [13] 40.0000000  1.0500000  2.1688734  2.1688734  0.3333333  0.3333333
@@ -751,7 +679,6 @@ betweenness(newnetwork, directed=T, weights=NA) </code></pre>
 ## [679]  6.0154563  6.0154563  6.0154563  6.0154563  1.1363636  1.1363636
 ## [685]  0.2500000  0.2500000  0.2500000  0.2500000  2.3876349  2.3876349
 ## [691]  2.3876349  2.3876349  2.3876349</code></pre>
-<pre class="r"><code>centr_betw(newnetwork, directed=T, normalized=T)</code></pre>
 <pre><code>## $res
 ##  [1]  84.0616886  28.5512815   0.0000000   0.0000000  13.1250010  91.5637434
 ##  [7]  22.3636950   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000
@@ -766,7 +693,12 @@ betweenness(newnetwork, directed=T, weights=NA) </code></pre>
 ## 
 ## $theoretical_max
 ## [1] 57798</code></pre>
-<p>Next, we assess similarity. As we first saw in the dataset <code>hw_edgelist</code>, there are five tie types that simply range 1, 2, 3, 4, and 5, The options for each tie were articulated as being the following:</p>
+</div>
+<div id="similarity." class="section level4">
+<h4>Similarity.</h4>
+<p>Finally, we assess similarity. The measure of degree similarity is 0.06.</p>
+<pre><code>## [1] 0.06026113</code></pre>
+<p>More specifically, in terms of tie type, we first saw in the dataset <code>hw_edgelist</code> that there are five tie types consisting of 1, 2, 3, 4, and 5, The options for each tie were articulated as being the following:</p>
 <ol style="list-style-type: decimal">
 <li><p>I have texted in the last 7 days</p></li>
 <li><p>I have met during my time in MBDS</p></li>
@@ -774,50 +706,22 @@ betweenness(newnetwork, directed=T, weights=NA) </code></pre>
 <li><p>I ask for advice/help</p></li>
 <li><p>Asks me for help/advice</p></li>
 </ol>
-<p>The first tie, which concerns having texted another person within the last seven days, is the characteristic that produces the most similar network in terms of introversion. The third tie, is my friend, as well as the second tie of having met someone in MBDS, are the characteristics that produce the least similar network in terms of introversion. Especially given that BDS-516 is a very diverse class, compared to other BDS courses, this is unsurprising to note. In terms of ties four and five, for asking and receiving requests for help, they are not disporportionately high in terms of determining how that might relate to similarity on the quality of introversion.</p>
-<p>Overall, this makes sense given the online environment and that people across all personalities would be similar in terms of having “texting” ties. People with different personalities will be less similar in terms of “friendship” ties.</p>
-<pre class="r"><code>node &lt;- hw_nodelist
-node[is.na(node)] &lt;- -1
-
-hw_edgelist %&gt;% filter(Tie.Type==1) -&gt; hw_edgelist_1
-hw_edgelist %&gt;% filter(Tie.Type==2) -&gt; hw_edgelist_2
-hw_edgelist %&gt;% filter(Tie.Type==3) -&gt; hw_edgelist_3
-hw_edgelist %&gt;% filter(Tie.Type==4) -&gt; hw_edgelist_4
-hw_edgelist %&gt;% filter(Tie.Type==5) -&gt; hw_edgelist_5
-
-
-net &lt;- graph_from_data_frame(d = hw_edgelist, vertices = node, directed = TRUE)
-net_1 &lt;- graph_from_data_frame(d = hw_edgelist_1, vertices = node, directed = TRUE)
-net_2 &lt;- graph_from_data_frame(d = hw_edgelist_2, vertices = node, directed = TRUE)
-net_3 &lt;- graph_from_data_frame(d = hw_edgelist_3, vertices = node, directed = TRUE)
-net_4 &lt;- graph_from_data_frame(d = hw_edgelist_4, vertices = node, directed = TRUE)
-net_5 &lt;- graph_from_data_frame(d = hw_edgelist_5, vertices = node, directed = TRUE)
-
-assortativity(net_1, V(net)$Introversion, directed=T)</code></pre>
-<pre><code>## [1] 0.1235727</code></pre>
-<pre class="r"><code>assortativity(net_2, V(net)$Introversion, directed=T)</code></pre>
-<pre><code>## [1] -0.03147655</code></pre>
-<pre class="r"><code>assortativity(net_3, V(net)$Introversion, directed=T)</code></pre>
-<pre><code>## [1] -0.04311202</code></pre>
-<pre class="r"><code>assortativity(net_4, V(net)$Introversion, directed=T)</code></pre>
-<pre><code>## [1] 0.003559696</code></pre>
-<pre class="r"><code>assortativity(net_5, V(net)$Introversion, directed=T)</code></pre>
-<pre><code>## [1] 0.06082053</code></pre>
-<div id="do-introverts-tend-to-be-at-the-periphery-while-extraverts-are-in-the-center-of-the-network-motivate." class="section level3">
-<h3>3) Do introverts tend to be at the periphery while extraverts are in the center of the network? Motivate.</h3>
-<p>As stated, there are three options for introversion per our dataset: 1. Introverted, 2. Middle ground, and 3. Extroverted. We have assigned colors based on people’s responses to the introversion question as blue, red, and yellow respectively. Blank circles represent <code>NA</code> entries, of which we had many.</p>
-<p>While we observe that many individuals did not to answer this question, we note that extroverts and ‘middle ground’ individuals are closer to the enter of the network. Indeed, introverts are more on the periphery, relative to the group of extroverts, but it is important to note the small sample size of both introverted and extroverted individuals compared to middle ground individuals and those who responded with <code>NA</code>.</p>
-<p>Perhaps, those who chose not to answer - those on the periphery of the network - are more likely to be introverted.</p>
-<pre class="r"><code>colrs &lt;- c(&quot;blue&quot;, &quot;red&quot;, &quot;gold&quot;)
-
-V(newnetwork)$color &lt;- colrs[V(newnetwork)$Introversion]
-plot(newnetwork, edge.arrow.size = 0.1, vertex.size = 10, vertex.label.dist=1.5)
-
-legend(title = &quot;Types of Individuals&quot;, x=-1.5, y=-1.1, 
-       c(&quot;Introverted&quot;,&quot;Middle Ground&quot;, &quot;Extraverted&quot;), pch=21, col=&quot;#777777&quot;, 
-       pt.bg=colrs, pt.cex=2, cex=.8, bty=&quot;n&quot;, ncol=1)</code></pre>
-<p><img src="project_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>The first tie, which concerns having <em>texted another person within the last seven days</em> (0.124), is the characteristic that produces the most similar network in terms of introversion. The third tie, <em>is my friend</em> (-0.031), as well as the second tie of <em>having met someone in MBDS</em> (-0.043), are the characteristics that produce the least similar network in terms of introversion. Especially given that BDS-516 is a very diverse class, compared to other BDS courses, this is unsurprising to note. In terms of ties four and five, for <em>asking and receiving requests for help</em> (0.004 and 0.061, respectively), they are not disproportionately high in terms of determining how that might relate to similarity on the characteristic of introversion.</p>
+<p>Overall, this makes sense given the online environment and that people across all personalities would be similar in terms of having “texting” ties (i.e., tie type 1 generates the most similar network in terms of introversion). People with different personalities would be less similar in terms of “friendship” ties (i.e., tie type 3 is most dissimilar).</p>
+<pre><code>##     Tie        Value
+## 1 Tie 1  0.123572655
+## 2 Tie 2 -0.031476549
+## 3 Tie 3 -0.031476549
+## 4 Tie 4 -0.043112020
+## 5 Tie 5  0.003559696</code></pre>
 </div>
+</div>
+<div id="do-introverts-tend-to-be-at-the-periphery-while-extraverts-are-in-the-center-of-the-network" class="section level3">
+<h3>3) Do introverts tend to be at the periphery while extraverts are in the center of the network?</h3>
+<p>As stated, there are three options for introversion per our dataset: 1. Introverted, 2. Middle ground, and 3. Extroverted. We have assigned colors based on people’s responses to the introversion question as blue, red, and yellow respectively. Blank circles represent <code>NA</code> entries, of which there are many.</p>
+<p>While we observe that many individuals did not to answer this question, we note that extroverts and middle ground individuals are closer to the enter of the network. <em>Indeed, introverts are more on the periphery, relative to the group of extroverts, but it is important to note the small sample size of both introverted and extroverted individuals compared to middle ground individuals and those who responded with <code>NA</code>.</em></p>
+<p>Perhaps, those who chose not to answer - those on the periphery of the network - are more likely to be introverted.</p>
+<p><img src="project_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 
 

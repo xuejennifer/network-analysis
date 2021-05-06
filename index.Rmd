@@ -6,6 +6,6 @@ output: html_document
 
 Thanks for stopping by. :-) 
 
-Please browse the "Project" and "About" tabs for more information.
+Please browse the **Project: HW10** tab for more information.
 
 

@@ -4,14 +4,16 @@ author: "Electric Eels: Walid H., Aamia M., Michael M., Jon S., Cory W., Jen X."
 date: "BDS-516 HW10 | May 7, 2021"
 output: html_document
 ---
- 
-In this report, we are interested in conducting a network analysis among the BDS-516 Spring 2021 class. First, we import the data and set up the relevant libraries. (`include = FALSE`). 
 
-## 1) Prepare the data for the network analysis (create a separate edge and node list)
+In this report, we are interested in conducting a network analysis among the BDS-516 Spring 2021 class.
 
-We begin with our separate node and edge lists, titled `hw_nodelist` and `hw_edgelist`.
+First, we set up the relevant libraries. (`include = FALSE`). 
 
-```{r include = FALSE}
+### 1) Prepare the data for the network analysis: a separate edge and node list.
+
+We begin with our separate node and edge lists, titled `hw_nodelist` and `hw_edgelist` (`include = FALSE`).
+
+```{r, include = FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(igraph)
@@ -25,60 +27,51 @@ hw_edgelist <- read_excel('hw10_clean.xlsx', sheet = "Edge") %>% lapply(as.numer
 ```
 
 
-### Network graphical visualization
+#### Network graphical visualization.
 
-Next, we begin with some basic visualizations. 
+Next, we generate some basic visualizations. We are able to draw several key insights from this visualization that plotted our nodes and edges:
 
-First, we can draw a few key insights from this visualization that plotted our nodes and edges:
+1) This appears to resemble a scale-free network; unsurprisingly, some respondents do not know others in the network well, while others appear to know many others.
 
-1) This appears to resemble a scale-free network; unsurprisingly, some respondents do not know others in the network wel  while others appear to know many others.
+2) Respondent 39 appears to be the least connected to the rest of the network, as well as Respondent 14 and 25 who have one connection.
 
-2) Respondent 39 appears to be the least connected to the rest of the network, as well as Respondent 14.
-
-```{r}
+```{r, echo=FALSE}
 newnetwork <- graph_from_data_frame(d = hw_edgelist, vertices = hw_nodelist, directed = TRUE)
 plot(newnetwork, edge.arrow.size = .3, vertex.size = 3, edge.curved=0)
 
 ```
 
-### Clustering and more graphs
+#### Clustering and more graphs.
 
-Second, we generated a Newman-Girvan graph, which sequentially removes high-betweeness edges to only leave behind the best partitioning of the network for the graph. This figure uses hierarchical clustering, identifying 22 unique clusters. 
+Additionally, we generated a Newman-Girvan graph, which sequentially removes high-betweeness edges to only leave behind the best partitioning of the network for the graph. This figure uses hierarchical clustering, and identifies 22 unique clusters. 
 
-We also created a figure  built on community detection, based on propagating labels. This figure assigns node labels, randomizes, and then replaces each label with the label that is most frequent among its neighbors; this process halts after each vertex has the most common label of its neighbors.
-*this is for line 70-71; not exactly sure what it's supposed to be showing* 
+We also created a figure built on community detection, based on propagating labels. This figure assigns node labels, randomizes, and then replaces each label with the label that is most frequent among its neighbors; this process halts after each vertex has the most common label of its neighbors. Briefly, the second plot shows each respondent encircled by a particular color; the type of color corresponds to the number of ties that the respondent has with other group members. 
 
-*this is getting a ton of errors, need to figure out if they matter & what's going on during 5/3 mtg AM*
-```{r}
+```{r, include=FALSE}
 ceb <- cluster_edge_betweenness(newnetwork)
+```
+
+
+```{r, echo=FALSE}
 dendPlot(ceb, mode="hclust")
 length(ceb)
 
-
-#plot(ceb, newnetwork, vertex.size = 3, edge.arrow.size = 0.2) this shows same info as previous line, not sure we need it
-
-
-clp <- cluster_label_prop(newnetwork)
-plot(clp, newnetwork, newnetwork, vertex.size = 3, edge.arrow.size = 0.2) 
-#Jon, what do the colors mean? Are all of these just clusters? If so, based on what exactly? -jX
+plot(ceb, newnetwork, vertex.size = 3, edge.arrow.size = 0.2)
 
 ```
 
-## 2) Calculate measures of centrality and similarity in networks depending on the type of tie. Which tie type generates the most similar network in terms of introversion? Which tie type is the most dissimilar?
+### 2) Calculate measures of centrality and similarity in networks depending on the type of tie. Which tie type generates the most similar network in terms of introversion? Which tie type is the most dissimilar?
 
-We begin with high-level network and node descriptives. 
+#### High-level network and node descriptives. 
 
-The density of the network is 0.44, which is the proportion of all present edges (i.e., connections) from all possible edges in the network. At a broad level, we can understand this value as indicating that not everyone who took the survey is connected.
+The *density* of the network is 0.44, which is the proportion of all present edges (i.e., connections) from all possible edges in the network. At a broad level, we can understand this value as indicating that not everyone who took the survey is connected.
 
-The network has a reciprocity and a (global) transitivity of ~0.5, suggesting that about half of the time, a respondent in the network indicated being directly and indirectly tied to someone else, when the respondent on the other end did not agree. This may partially be the result of measurement error. 
+The network has a *reciprocity* and a (global) *transitivity* of ~0.5, suggesting that about half of the time, a respondent in the network indicated being directly and indirectly tied to someone else, when the respondent on the other end did not agree. This may partially be the result of measurement error. 
 
-The longest geodesic distance, network diameter, is five.
+The longest geodesic distance, network *diameter*, is five and the average *node degree* using `all` degrees is 34.65.
 
-Lastly, the average node degree using `all` is 34.65.
-
-```{r}
+```{r, echo=FALSE}
 #DENSITY = proportion of present edges from all possible edges in the network. 
-#(connections are edges?? someone confirm -JX)
 edge_density(newnetwork, loops=F) 
 
 
@@ -87,7 +80,7 @@ reciprocity(newnetwork)
 
 
 #GLOBAL TRANSITIVITY
-#• global - ratio of triangles (direction disregarded) to connected triples. 
+#global - ratio of triangles (direction disregarded) to connected triples. 
 transitivity(newnetwork, type="global")
 
 
@@ -99,22 +92,15 @@ diameter(newnetwork, directed=F, weights=NA)
 #has a mode of in for in-degree, out for out-degree, and all or total for total degree.
 deg <- degree(newnetwork, mode="all")
 mean(deg)
-hist(deg, breaks = 20, main="Histogram of node degree")
-
 
 ```
 
-Here, we begin centrality functions: we assess degree, closeness, the eigenvector, and betweenness.
-*comments needed, see the NetSciX PDF to interpret values*
+#### Centrality. 
+Next, we assess the centrality functions of degree, closeness, the eigenvector, and betweenness.
 
-For degree, which lists the number of ties, the output `centralization` is .735 and the thoretical maximum of ties is 1560.
+For *degree*, which lists the number of ties, the centrality score is .735. If we examine centrality based on distance to others in the graph, *closeness*, we view that the centrality score is 0.434. In terms of the *eigenvector*, which is centrality proportional to the sum of connection centralities, the centrality score is 0.67 (values of the first eigenvector). Finally, for *betweenness*, the score is 0.12.
 
-If we examine centrality based on distacne to others in the graph, closeness, we view that the centrality score is 0.434 and the theoretical maximum of this is 19.25.
-
-For the eigenvector, which is centrality proportional to the sum of connection centralities, the centrality score is 0.67 (values of the first eigenvector) and the theoretical maximum is 39.
-
-Finally, for betweenness, the centrality value is 0.12.
-```{r}
+```{r, echo=FALSE}
 #Degree (number of ties)
 degree(newnetwork, mode="in")
 centr_degree(newnetwork, mode="in", normalized=T)
@@ -140,7 +126,21 @@ centr_betw(newnetwork, directed=T, normalized=T)
 
 ```
 
-Next, we assess similarity. As we first saw in the dataset `hw_edgelist`, there are five tie types that simply range 1, 2, 3, 4, and 5, The options for each tie were articulated as being the following:
+
+#### Similarity. 
+Finally, we assess similarity. The measure of degree similarity is 0.06. 
+```{r, echo=FALSE}
+
+node <- hw_nodelist
+node[is.na(node)] <- -1
+
+net <- graph_from_data_frame(d = hw_edgelist, vertices = node, directed = TRUE)
+assortativity_degree(net, directed=T)
+
+```
+
+
+More specifically, in terms of tie type, we first saw in the dataset `hw_edgelist` that there are five tie types consisting of 1, 2, 3, 4, and 5, The options for each tie were articulated as being the following:
 
 1. I have texted in the last 7 days
 
@@ -152,15 +152,12 @@ Next, we assess similarity. As we first saw in the dataset `hw_edgelist`, there 
 
 5. Asks me for help/advice
 
-The first tie, which concerns having texted another person within the last seven days, is the characteristic that produces the most similar network in terms of introversion. The third tie, is my friend, as well as the second tie of having met someone in MBDS, are the characteristics that produce the least similar network in terms of introversion. Especially given that BDS-516 is a very diverse class, compared to other BDS courses, this is unsurprising to note. In terms of ties four and five, for asking and receiving requests for help, they are not disporportionately high in terms of determining how that might relate to similarity on the quality of introversion.
 
-Overall, this makes sense given the online environment and that people across all personalities would be similar in terms of having "texting" ties. People with different personalities will be less similar in terms of "friendship" ties. 
+The first tie, which concerns having *texted another person within the last seven days* (0.124), is the characteristic that produces the most similar network in terms of introversion. The third tie, *is my friend* (-0.031), as well as the second tie of *having met someone in MBDS* (-0.043), are the characteristics that produce the least similar network in terms of introversion. Especially given that BDS-516 is a very diverse class, compared to other BDS courses, this is unsurprising to note. In terms of ties four and five, for *asking and receiving requests for help* (0.004 and 0.061, respectively), they are not disproportionately high in terms of determining how that might relate to similarity on the characteristic of introversion.
 
+Overall, this makes sense given the online environment and that people across all personalities would be similar in terms of having "texting" ties (i.e., tie type 1 generates the most similar network in terms of introversion). People with different personalities would be less similar in terms of "friendship" ties (i.e., tie type 3 is most dissimilar). 
 
-```{r}
-
-node <- hw_nodelist
-node[is.na(node)] <- -1
+```{r, echo=FALSE}
 
 hw_edgelist %>% filter(Tie.Type==1) -> hw_edgelist_1
 hw_edgelist %>% filter(Tie.Type==2) -> hw_edgelist_2
@@ -176,23 +173,35 @@ net_3 <- graph_from_data_frame(d = hw_edgelist_3, vertices = node, directed = TR
 net_4 <- graph_from_data_frame(d = hw_edgelist_4, vertices = node, directed = TRUE)
 net_5 <- graph_from_data_frame(d = hw_edgelist_5, vertices = node, directed = TRUE)
 
-assortativity(net_1, V(net)$Introversion, directed=T)
-assortativity(net_2, V(net)$Introversion, directed=T)
-assortativity(net_3, V(net)$Introversion, directed=T)
-assortativity(net_4, V(net)$Introversion, directed=T)
-assortativity(net_5, V(net)$Introversion, directed=T)
+assortativity(net_1, V(net)$Introversion, directed=T)->V1
+assortativity(net_2, V(net)$Introversion, directed=T)->V2
+assortativity(net_3, V(net)$Introversion, directed=T)->V3
+assortativity(net_4, V(net)$Introversion, directed=T)->V4
+assortativity(net_5, V(net)$Introversion, directed=T)->V5
 
 ```
 
 
-### 3) Do introverts tend to be at the periphery while extraverts are in the center of the network? Motivate.
-As stated, there are three options for introversion per our dataset: 1. Introverted, 2. Middle ground, and 3. Extroverted. We have assigned colors based on people's responses to the introversion question as blue, red, and yellow respectively. Blank circles represent `NA` entries, of which we had many.
+```{r, echo=FALSE}
+Tie <- c("Tie 1", "Tie 2", "Tie 3", "Tie 4", "Tie 5")
+Value <- c(V1,V2,V2,V3,V4)
 
-While we observe that many individuals did not to answer this question, we note that extroverts and 'middle ground' individuals are closer to the enter of the network. Indeed, introverts are more on the periphery, relative to the group of extroverts, but it is important to note the small sample size of both introverted and extroverted individuals compared to middle ground individuals and those who responded with `NA`. 
+df <- data.frame(Tie, Value)
+
+df
+```
+
+
+
+
+### 3) Do introverts tend to be at the periphery while extraverts are in the center of the network? 
+As stated, there are three options for introversion per our dataset: 1. Introverted, 2. Middle ground, and 3. Extroverted. We have assigned colors based on people's responses to the introversion question as blue, red, and yellow respectively. Blank circles represent `NA` entries, of which there are many.
+
+While we observe that many individuals did not to answer this question, we note that extroverts and middle ground individuals are closer to the enter of the network. *Indeed, introverts are more on the periphery, relative to the group of extroverts, but it is important to note the small sample size of both introverted and extroverted individuals compared to middle ground individuals and those who responded with `NA`.* 
 
 Perhaps, those who chose not to answer - those on the periphery of the network - are more likely to be introverted. 
 
-```{r}
+```{r, echo=FALSE}
 colrs <- c("blue", "red", "gold")
 
 V(newnetwork)$color <- colrs[V(newnetwork)$Introversion]
