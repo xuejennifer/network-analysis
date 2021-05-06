@@ -197,7 +197,7 @@ df
 ### 3) Do introverts tend to be at the periphery while extraverts are in the center of the network? 
 As stated, there are three options for introversion per our dataset: 1. Introverted, 2. Middle ground, and 3. Extroverted. We have assigned colors based on people's responses to the introversion question as blue, red, and yellow respectively. Blank circles represent `NA` entries, of which there are many.
 
-While we observe that many individuals did not to answer this question, we note that extroverts and middle ground individuals are closer to the enter of the network. *Indeed, introverts are more on the periphery, relative to the group of extroverts, but it is important to note the small sample size of both introverted and extroverted individuals compared to middle ground individuals and those who responded with `NA`.* 
+While we observe that many individuals did not answer this question, we note that extroverts and middle ground individuals are closer to the enter of the network. *Indeed, introverts are more on the periphery, relative to the group of extroverts, but it is important to note the small sample size of both introverted and extroverted individuals compared to middle ground individuals and those who responded with `NA`.* 
 
 Perhaps, those who chose not to answer - those on the periphery of the network - are more likely to be introverted. 
 
