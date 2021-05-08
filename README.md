@@ -1,6 +1,6 @@
 # Repository Topic
 
-In this report, the Electric Eels analyze networks in a graduate-level course.
+In this report, networks within a graduate-level course are examined.
 
 https://xuejennifer.github.io/network-analysis/
  
